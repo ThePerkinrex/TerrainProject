@@ -11,7 +11,6 @@ Para descargar los archivos fácilmente a Processing es mejor instalar la herram
 Además para poder hacer funcionar el codigo hay dos opciones:
   - Instalar la librería PeasyCam (para ver mejor el terreno)
   - Eliminar las líneas :
-  
-      import peasy.*;
-      import peasy.org.apache.commons.math.*;
-      import peasy.org.apache.commons.math.geometry.*;
+      - import peasy.*;
+      - import peasy.org.apache.commons.math.*;
+      - import peasy.org.apache.commons.math.geometry.*;
