@@ -10,7 +10,9 @@ Incluye:
 Para descargar los archivos fácilmente a Processing es mejor instalar la herramienta Git Manager en Processing
 Además para poder hacer funcionar el codigo hay dos opciones:
   - Instalar la librería PeasyCam (para ver mejor el terreno)
-  - Eliminar las líneas :
+  - Eliminar las líneas en TerrainGen.pde:
       - import peasy.*;
       - import peasy.org.apache.commons.math.*;
       - import peasy.org.apache.commons.math.geometry.*;
+
+Para usar en otro proyecto de Processing eliminar TerrainGen.pde porque es el documento para poder visualizar
