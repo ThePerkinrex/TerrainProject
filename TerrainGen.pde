@@ -8,9 +8,9 @@ static boolean fillBool = true;
 static boolean noStro = false;
 static int w = 3200;
 static int h = 3200;
-static float[][] terrain;
-static color[][] colors;
-static int[][] biomes;
+static TerrainData terrainArray;
+static ColorData colorsArray;
+static BiomeData biomesArray;
 static PApplet pa = new PApplet();
 PeasyCam cam;
 
@@ -18,9 +18,16 @@ void setup() {
   size(800, 800, P3D);
   cam = new PeasyCam(this, 100);
   Utils.init();
-  Terrain.generateTerrain();
+  stroke(255);
+  if (!fillBool) {
+    noFill();
+  }
+  if (noStro) {
+    noStroke();
+  }
+  Terrain.generateTerrain(biomesArray, terrainArray, colorsArray);
 }
 
 void draw() {
-  Terrain.drawTerrain();
+  Terrain.drawTerrain(terrainArray, colorsArray);
 }

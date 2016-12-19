@@ -4,16 +4,10 @@ static class Utils {
   public static void init() {
     cols = w / scl;
     rows = h / scl;
-    terrain = new float[cols][rows];
-    colors = new color[cols][rows];
-    biomes = new int[cols][rows];
-    pa.stroke(255);
-    if (!fillBool) {
-      pa.noFill();
-    }
-    if (noStro) {
-      pa.noStroke();
-    }
+    TerrainGen tG = new TerrainGen();
+    terrainArray = tG.new TerrainData(new float[cols][rows]);
+    colorsArray = tG.new ColorData(new color[cols][rows]);
+    biomesArray = tG.new BiomeData(new int[cols][rows]);
   }
 
   public static int mappedNoise(float xoff, float yoff, int mappingStart, int mappingEnd) {

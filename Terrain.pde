@@ -1,8 +1,9 @@
 static class Terrain {
 
   private static PApplet pa = new PApplet();
+  private static TerrainUtils TUtils;
 
-  public static void generateTerrain() {
+  public static void generateTerrain(BiomeData biomes, TerrainData terrain, ColorData colors) {
     println("Started generating terrain.");
     float yoff = 0;
     for (int ty = 0; ty < rows-1; ty++) {
@@ -10,16 +11,16 @@ static class Terrain {
       float xoff = 0;
       for (int tx = 0; tx < cols; tx++) {
         xoff += 0.1;
-        biomes[tx][ty] = Biomes.randomBiome(tx, ty);
-        calculateZValues(biomes[tx][ty], tx, ty, xoff, yoff);
-        calculateCValues(biomes[tx][ty], tx, ty);
+        biomes.biomes[tx][ty] = Biomes.randomBiome(biomes, tx, ty);
+        TUtils.calculateZValues(terrain, biomes, tx, ty, xoff, yoff);
+        TUtils.calculateCValues(colors, biomes, tx, ty);
         println(str(Utils.calcPercent(tx + (cols * ty), cols + (cols * rows)))+"%");
       }
     }
     println("Finished generating terrain.");
   }
 
-  public static void drawTerrain() {
+  public static void drawTerrain(TerrainData terrain, ColorData colors) {
     pa.background(51);
 
     pa.translate(pa.width/2, pa.height);
@@ -30,31 +31,12 @@ static class Terrain {
       pa.beginShape(TRIANGLE_STRIP);
       for (int x = 0; x < cols; x++) {
         if (fillBool) {
-          pa.fill(colors[x][y]);
+          pa.fill(colors.colors[x][y]);
         }
-        pa.vertex(x * scl, y * scl, terrain[x][y] + 100);
-        pa.vertex(x * scl, (y + 1) * scl, terrain[x][y + 1] + 100);
+        pa.vertex(x * scl, y * scl, terrain.terrain[x][y] + 100);
+        pa.vertex(x * scl, (y + 1) * scl, terrain.terrain[x][y + 1] + 100);
       }
       pa.endShape();
-    }
-  }
-
-  public static void calculateZValues(int biome, int x, int y, float xoff, float yoff) {
-    if (biome == 0) {
-      terrain[x][y] = map(pa.noise(xoff, yoff), 0, 1, -50, 100);
-    } else if (biome == 1 || biome == 2) {
-      terrain[x][y] = map(pa.noise(xoff, yoff), 0, 1, -50, 50);
-    }
-  }
-
-  public static void calculateCValues(int biome, int x, int y) {
-
-    if (biome == 0) {
-      colors[x][y] = pa.color(Utils.randomInt(40, 150));
-    } else if (biome == 1) {
-      colors[x][y] = pa.color(255, 255, Utils.randomInt(0, 200));
-    } else if (biome == 2) {
-      colors[x][y] = pa.color(0, Utils.randomInt(100, 200), 0);
     }
   }
 }
